@@ -4,7 +4,9 @@ import {EventsAdmin,EventsAdminListener} from '../milib/events/eventsadmin';
 import {DataHolder} from '../milib/dataholder/dataholder';
 import {Motor} from '../milib/engines/motor';
 import {Imagen} from '../milib/views/imgs/imagen';
+import {Window} from '../milib/views/windows/window';
 import {Button} from '../milib/views/buttons/button';
+import {Label} from '../milib/views/labels/label';
 
 export class Actividad1 implements EventsAdminListener{
 
@@ -12,9 +14,16 @@ export class Actividad1 implements EventsAdminListener{
     private panelMenu:Panel;
     private panelJuego:Panel;
     private imagenFondo:Imagen;
-    private botonInicio:Button;
-    private botonContinuar:Button;
-    private botonSalir:Button;
+    private btnInicio:Button;
+    private btnContinuar:Button;
+    private btnSalir:Button;
+    private window:Window;
+    private lblPregunta:Label;
+    private respuesta1:Button;
+    private respuesta2:Button;
+    private respuesta3:Button;
+    private respuesta4:Button;
+
 
     constructor(vMotor:Motor){
         this.motor=vMotor;
@@ -22,6 +31,7 @@ export class Actividad1 implements EventsAdminListener{
         this.imagenFondo.setImg('./assets/fondo.jpg');
         this.motor.setRaiz(this.imagenFondo);
         this.crearEscenarioMenu();
+        this.crearEscenarioJuego();
         
     }
 
@@ -39,25 +49,29 @@ export class Actividad1 implements EventsAdminListener{
         
         this.motor.addViewToParentView(this.imagenFondo,this.panelMenu);
         
-        this.botonInicio=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
-        this.motor.addViewToParentView(this.panelMenu, this.botonInicio);
-        this.botonInicio.setImagePath('./assets/images.png');        
-        this.botonInicio.setTexto("Inicio");
-        this.botonContinuar.setListener(this);
+        this.btnInicio=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.panelMenu, this.btnInicio);
+        this.btnInicio.setImagePath('./assets/images.png');        
+        this.btnInicio.setTexto("Inicio");
+        this.btnInicio.setListener(this);
         
-        this.botonContinuar=new Button(this.motor,this.panelMenu.w/3,this.panelMenu.h/3,this.panelMenu.w/3,this.panelMenu.h/3);
-        this.motor.addViewToParentView(this.panelMenu, this.botonContinuar);
-        this.botonContinuar.setImagePath('./assets/images.png');
-        this.botonContinuar.setTexto("Continuar");
+        this.btnContinuar=new Button(this.motor,this.panelMenu.w/3,this.panelMenu.h/3,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.panelMenu, this.btnContinuar);
+        this.btnContinuar.setImagePath('./assets/images.png');
+        this.btnContinuar.setTexto("Continuar");
         
-        this.botonSalir=new Button(this.motor,this.panelMenu.w/3,this.panelMenu.h/3*2,this.panelMenu.w/3,this.panelMenu.h/3);
-        this.motor.addViewToParentView(this.panelMenu, this.botonSalir);
-        this.botonSalir.setImagePath('./assets/images.png');
-        this.botonSalir.setTexto("Salir");
+        this.btnSalir=new Button(this.motor,this.panelMenu.w/3,this.panelMenu.h/3*2,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.panelMenu, this.btnSalir);
+        this.btnSalir.setImagePath('./assets/images.png');
+        this.btnSalir.setTexto("Salir");
         
     }
 
     private crearEscenarioJuego():void{
+        //PREGUNTAS
+        //RESPUESTAS
+        //RESPUESTAS CORRECTAS
+
         
     }
 
