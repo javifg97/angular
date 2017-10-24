@@ -23,6 +23,9 @@ export class Actividad1 implements EventsAdminListener{
     private respuesta2:Button;
     private respuesta3:Button;
     private respuesta4:Button;
+    private arPreguntas:String[];
+    private arRespuestas:Array<String[]>;
+    private arRespuestasCorrectas:String[];
 
 
     constructor(vMotor:Motor){
@@ -69,8 +72,30 @@ export class Actividad1 implements EventsAdminListener{
 
     private crearEscenarioJuego():void{
         //PREGUNTAS
+        this.arPreguntas = [];
+        this.arPreguntas = [
+            "¿Qué es blanco y si se cae de un arbol te mata?",
+            "¿Qué número si le quitas la mitad da cero?",
+            "¿Cuanto tiempo hace falta para cocer un huevo duro?"
+        ];
+        console.log(this.arPreguntas[0]);
+        console.log(this.arPreguntas[1]);
+        console.log(this.arPreguntas[2]);
         //RESPUESTAS
-        //RESPUESTAS CORRECTAS
+        this.arRespuestas = new Array<String[]>();
+        let arrAux :String[] = ["Un IceBerg","Un Inglés en Mallorca","Un tiranosaurius Rex albino","Una nevera"]
+       /*this.arRespuestas = [[this.arPreguntas[0]],["Un IceBerg","Un Inglés en Mallorca","Un tiranosaurius Rex albino","Una nevera"]],
+        [[this.arPreguntas[1]],["0.5","2","8","0.000000001"]],
+       [[this.arPreguntas[2]],["13 min","0 min","Lo que dura una partida del pubg","Lo que tarda Tuvilla en marearse en el pubg"]];*/
+        this.arRespuestas[0] = arrAux;
+        arrAux = ["0.5","2","8","0.000000001"];
+        this.arRespuestas[1] = arrAux;
+        arrAux = ["13 min","0 min","Lo que dura una partida del pubg","Lo que tarda Tuvilla en marearse en el pubg"];
+        this.arRespuestas[2] = arrAux;
+        console.log(this.arRespuestas);
+       //RESPUESTAS CORRECTAS
+        this.arRespuestasCorrectas= [this.arRespuestas[0][3],this.arRespuestas[1][2],this.arRespuestas[2][1]];
+        console.log(this.arRespuestasCorrectas);
 
         
     }
