@@ -12,29 +12,33 @@ export class Actividad1 implements EventsAdminListener{
 
     private motor:Motor;
     private panelMenu:Panel;
-    private panelJuego:Panel;
     private imagenFondo:Imagen;
     private btnInicio:Button;
     private btnContinuar:Button;
     private btnSalir:Button;
     private window:Window;
-    private lblPregunta:Label;
-    private respuesta1:Button;
-    private respuesta2:Button;
-    private respuesta3:Button;
-    private respuesta4:Button;
-    private arPreguntas:String[];
-    private arRespuestas:Array<String[]>;
+    private arPreguntas:string[];
+    private arRespuestas:Array<string[]>;
     private arRespuestasCorrectas:String[];
-
+    private btnRes1:Button;
+    private btnRes2:Button;
+    private btnRes3:Button;
+    private btnRes4:Button;
+    private lblPregunta:Label;
+    private contador:number;
+    
 
     constructor(vMotor:Motor){
         this.motor=vMotor;
         this.imagenFondo=new Imagen(this.motor,0,0,DataHolder.instance.nScreenWidth,DataHolder.instance.nScreenHeight);
         this.imagenFondo.setImg('./assets/fondo.jpg');
         this.motor.setRaiz(this.imagenFondo);
+        this.window = new Window(this.motor,0,0,DataHolder.instance.nScreenWidth,DataHolder.instance.nScreenHeight);
+        this.window.btnSalir.setListener(this);
         this.crearEscenarioMenu();
         this.crearEscenarioJuego();
+        
+
         
     }
 
@@ -62,11 +66,16 @@ export class Actividad1 implements EventsAdminListener{
         this.motor.addViewToParentView(this.panelMenu, this.btnContinuar);
         this.btnContinuar.setImagePath('./assets/images.png');
         this.btnContinuar.setTexto("Continuar");
+        this.btnContinuar.setListener(this);
         
         this.btnSalir=new Button(this.motor,this.panelMenu.w/3,this.panelMenu.h/3*2,this.panelMenu.w/3,this.panelMenu.h/3);
         this.motor.addViewToParentView(this.panelMenu, this.btnSalir);
         this.btnSalir.setImagePath('./assets/images.png');
         this.btnSalir.setTexto("Salir");
+        this.btnSalir.setListener(this);
+
+        this.motor.addViewToParentView(this.imagenFondo, this.window);
+        this.motor.setViewVisibility(this.window.uid, false);
         
     }
 
@@ -84,8 +93,8 @@ export class Actividad1 implements EventsAdminListener{
 
 
         //RESPUESTAS
-        this.arRespuestas = new Array<String[]>();
-        let arrAux :String[] = ["Un IceBerg","Un Inglés en Mallorca","Un tiranosaurius Rex albino","Una nevera"]
+        this.arRespuestas = new Array<string[]>();
+        let arrAux :string[] = ["Un IceBerg","Un guiri en Mallorca","Un tiranosaurius Rex albino","Una nevera"]
         this.arRespuestas[0] = arrAux;
         arrAux = ["0.5","2","8","0.000000001"];
         this.arRespuestas[1] = arrAux;
@@ -96,7 +105,38 @@ export class Actividad1 implements EventsAdminListener{
 
        //RESPUESTAS CORRECTAS
         this.arRespuestasCorrectas= [this.arRespuestas[0][3],this.arRespuestas[1][2],this.arRespuestas[2][1]];
-    
+
+
+        //RELLENAR WINDOW
+        
+        this.btnRes1=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.window, this.btnRes1);
+        this.btnRes1.setImagePath('./assets/images.png');        
+        this.btnRes1.setTexto("");
+        this.btnRes1.setListener(this);
+
+        this.btnRes2=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.window, this.btnRes2);
+        this.btnRes2.setImagePath('./assets/images.png');        
+        this.btnRes2.setTexto("");
+        this.btnRes2.setListener(this);
+
+        this.btnRes3=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.window, this.btnRes3);
+        this.btnRes3.setImagePath('./assets/images.png');        
+        this.btnRes3.setTexto("");
+        this.btnRes3.setListener(this);
+
+        this.btnRes4=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.window, this.btnRes4);
+        this.btnRes4.setImagePath('./assets/images.png');        
+        this.btnRes4.setTexto("");
+        this.btnRes4.setListener(this);
+
+        this.lblPregunta=new Label(this.motor, this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.motor.addViewToParentView(this.window, this.lblPregunta);
+        this.lblPregunta.setTexto("");
+
 
         
     }
@@ -107,6 +147,62 @@ export class Actividad1 implements EventsAdminListener{
       }
 
     buttonListenerOnClick?(btn:Button):void{
+        if(btn == this.btnInicio){
+            this.contador = 0;
+            this.motor.setViewVisibility(this.panelMenu.uid,false);
+            this.motor.setViewVisibility(this.window.uid,true);
+            this.lblPregunta.setTexto(this.arPreguntas[0]);
+            this.btnRes1.setTexto(this.arRespuestas[0][0]);
+            this.btnRes2.setTexto(this.arRespuestas[0][1]);
+            this.btnRes3.setTexto(this.arRespuestas[0][2]);
+            this.btnRes4.setTexto(this.arRespuestas[0][3]);
+
+        }else if (btn == this.btnRes4 && this.contador == 1) {
+            this.contador = 1;
+            this.lblPregunta.setTexto(this.arPreguntas[1]);
+            this.btnRes1.setTexto(this.arRespuestas[1][0]);
+            this.btnRes2.setTexto(this.arRespuestas[1][1]);
+            this.btnRes3.setTexto(this.arRespuestas[1][2]);
+            this.btnRes4.setTexto(this.arRespuestas[1][3]);
+
+
+            
+            
+        }else if(btn == this.btnRes3 && this.contador == 2){
+            this.contador = 2;
+            this.lblPregunta.setTexto(this.arPreguntas[2]);
+            this.btnRes1.setTexto(this.arRespuestas[2][0]);
+            this.btnRes2.setTexto(this.arRespuestas[2][1]);
+            this.btnRes3.setTexto(this.arRespuestas[2][2]);
+            this.btnRes4.setTexto(this.arRespuestas[2][3]);
+        }else if(btn == this.btnRes2 && this.contador == 3){
+            this.contador=-1;
+            this.motor.setViewVisibility(this.panelMenu.uid,true);
+            this.motor.setViewVisibility(this.window.uid,false);
+
+        }else if(btn == this.window.btnSalir){
+            this.contador=2;
+            this.motor.setViewVisibility(this.window.uid, false);
+            this.motor.setViewVisibility(this.panelMenu.uid,true);
+        }else if(btn == this.btnContinuar){
+            
+            this.motor.setViewVisibility(this.panelMenu.uid,false);
+            this.motor.setViewVisibility(this.window.uid,true);
+            this.lblPregunta.setTexto(this.arPreguntas[this.contador]);
+            this.btnRes1.setTexto(this.arRespuestas[this.contador][0]);
+            this.btnRes2.setTexto(this.arRespuestas[this.contador][1]);
+            this.btnRes3.setTexto(this.arRespuestas[this.contador][2]);
+            this.btnRes4.setTexto(this.arRespuestas[this.contador][3]);
+        }else if(btn == this.btnSalir){
+            this.contador = -1;
+        }
+        else{
+            this.contador = -1;
+            this.motor.setViewVisibility(this.window.uid, false);
+            this.motor.setViewVisibility(this.panelMenu.uid,true);
+        }
+
+
 
     }
 }

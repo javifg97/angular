@@ -12,7 +12,7 @@ import {Button} from '../buttons/button';
 export class Window extends View {
 
     private sColor:string=null;
-    private btnSalir:Button=null;
+    public btnSalir:Button=null;
     
     
 
@@ -24,7 +24,7 @@ export class Window extends View {
         this.motor.addViewToParentView(this,this.btnSalir);
         this.btnSalir.setImagePath('./assets/images.png');        
         this.btnSalir.setTexto("Salir");
-        this.btnSalir.setColor(null);
+       
 
 
     }
@@ -38,7 +38,7 @@ export class Window extends View {
         
         //console.log(this.xa+"========== "+this.ya);
     }
-
+    
     
 
 }

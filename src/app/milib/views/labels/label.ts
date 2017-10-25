@@ -1,6 +1,7 @@
 import {View} from '../view';
 import {Motor} from '../../engines/motor'
 
+
 export class Label extends View{
 
     private sColor:string=null;
@@ -12,11 +13,13 @@ export class Label extends View{
     private sBaseLine:string="top"; 
     private nXText:number=0;
     private nYText:number=0;
+
     
 
     constructor(vmotor:Motor,vX:number,vY:number,vW:number,vH:number){
         super(vmotor,vX,vY,vW,vH);
         this.setTextAttrs("center","middle");
+
 
     }
 
@@ -112,5 +115,4 @@ export class Label extends View{
     public setTexto(vtexto:string){
         this.sTexto=vtexto;
     }
-
 }
