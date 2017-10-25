@@ -37,6 +37,7 @@ export class Actividad1 implements EventsAdminListener{
         this.window.btnSalir.setListener(this);
         this.crearEscenarioMenu();
         this.crearEscenarioJuego();
+        this.contador = -1;
         
 
         
@@ -101,33 +102,27 @@ export class Actividad1 implements EventsAdminListener{
         arrAux = ["13 min","0 min","Lo que dura una partida del pubg","Lo que tarda Tuvilla en marearse en el pubg"];
         this.arRespuestas[2] = arrAux;
         
-
-
-       //RESPUESTAS CORRECTAS
-        this.arRespuestasCorrectas= [this.arRespuestas[0][3],this.arRespuestas[1][2],this.arRespuestas[2][1]];
-
-
         //RELLENAR WINDOW
         
-        this.btnRes1=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.btnRes1=new Button(this.motor,DataHolder.instance.nScreenWidth*0.2,DataHolder.instance.nScreenHeight*0.55,this.panelMenu.w/3,this.panelMenu.h/3);
         this.motor.addViewToParentView(this.window, this.btnRes1);
         this.btnRes1.setImagePath('./assets/images.png');        
         this.btnRes1.setTexto("");
         this.btnRes1.setListener(this);
 
-        this.btnRes2=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.btnRes2=new Button(this.motor,DataHolder.instance.nScreenWidth*0.2,DataHolder.instance.nScreenHeight*0.75,this.panelMenu.w/3,this.panelMenu.h/3);
         this.motor.addViewToParentView(this.window, this.btnRes2);
         this.btnRes2.setImagePath('./assets/images.png');        
         this.btnRes2.setTexto("");
         this.btnRes2.setListener(this);
 
-        this.btnRes3=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.btnRes3=new Button(this.motor,DataHolder.instance.nScreenWidth*0.65,DataHolder.instance.nScreenHeight*0.55,this.panelMenu.w/3,this.panelMenu.h/3);
         this.motor.addViewToParentView(this.window, this.btnRes3);
         this.btnRes3.setImagePath('./assets/images.png');        
         this.btnRes3.setTexto("");
         this.btnRes3.setListener(this);
 
-        this.btnRes4=new Button(this.motor,this.panelMenu.w/3,0,this.panelMenu.w/3,this.panelMenu.h/3);
+        this.btnRes4=new Button(this.motor,DataHolder.instance.nScreenWidth*0.65,DataHolder.instance.nScreenHeight*0.75,this.panelMenu.w/3,this.panelMenu.h/3);
         this.motor.addViewToParentView(this.window, this.btnRes4);
         this.btnRes4.setImagePath('./assets/images.png');        
         this.btnRes4.setTexto("");
@@ -157,7 +152,7 @@ export class Actividad1 implements EventsAdminListener{
             this.btnRes3.setTexto(this.arRespuestas[0][2]);
             this.btnRes4.setTexto(this.arRespuestas[0][3]);
 
-        }else if (btn == this.btnRes4 && this.contador == 1) {
+        }else if (btn == this.btnRes4 && this.contador == 0) {
             this.contador = 1;
             this.lblPregunta.setTexto(this.arPreguntas[1]);
             this.btnRes1.setTexto(this.arRespuestas[1][0]);
@@ -168,23 +163,22 @@ export class Actividad1 implements EventsAdminListener{
 
             
             
-        }else if(btn == this.btnRes3 && this.contador == 2){
+        }else if(btn == this.btnRes3 && this.contador == 1){
             this.contador = 2;
             this.lblPregunta.setTexto(this.arPreguntas[2]);
             this.btnRes1.setTexto(this.arRespuestas[2][0]);
             this.btnRes2.setTexto(this.arRespuestas[2][1]);
             this.btnRes3.setTexto(this.arRespuestas[2][2]);
             this.btnRes4.setTexto(this.arRespuestas[2][3]);
-        }else if(btn == this.btnRes2 && this.contador == 3){
-            this.contador=-1;
-            this.motor.setViewVisibility(this.panelMenu.uid,true);
+        }else if(btn == this.btnRes2 && this.contador == 2){
+            this.imagenFondo.setImg('./assets/win.png');
+            this.motor.setViewVisibility(this.panelMenu.uid,false);
             this.motor.setViewVisibility(this.window.uid,false);
 
         }else if(btn == this.window.btnSalir){
-            this.contador=2;
             this.motor.setViewVisibility(this.window.uid, false);
             this.motor.setViewVisibility(this.panelMenu.uid,true);
-        }else if(btn == this.btnContinuar){
+        }else if(btn == this.btnContinuar && this.contador != -1){
             
             this.motor.setViewVisibility(this.panelMenu.uid,false);
             this.motor.setViewVisibility(this.window.uid,true);
@@ -194,7 +188,8 @@ export class Actividad1 implements EventsAdminListener{
             this.btnRes3.setTexto(this.arRespuestas[this.contador][2]);
             this.btnRes4.setTexto(this.arRespuestas[this.contador][3]);
         }else if(btn == this.btnSalir){
-            this.contador = -1;
+            this.motor.setViewVisibility(this.panelMenu.uid,false);
+            this.imagenFondo.setImg('./assets/findejuego.jpg');
         }
         else{
             this.contador = -1;
